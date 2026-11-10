@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PausePostcard demo</title>
+<style>body{max-width:65rem;margin:2rem auto;padding:1rem;font:1rem system-ui}canvas{display:block;max-width:100%;margin-block:1rem}button{font:inherit}</style>
+<h1>PausePostcard demo</h1>
+<canvas width="480" height="270" aria-label="Synthetic game scene"></canvas>
+<button type="button">Make a PausePostcard</button>
+<p role="status"></p>
+<script type="module">
+import {frameSnap, reportCode} from '../web/frame.mjs';
+import {offerSnap} from '../web/browser.mjs';
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = '#24345b';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+for (let i = 0; i < 14; i++) {
+  ctx.fillStyle = 'hsl(' + i * 360 / 14 + ' 65% 66%)';
+  ctx.fillRect(18 + i * 32, 120 + Math.round(55 * Math.sin(i * 1.4)), 25, 25);
+}
+document.querySelector('button').onclick = async () => {
+  const meta = {game:'demo',build:'1',where:'Greenhouse',platform:'Web',utc:new Date().toISOString(),reportCode:reportCode('DEMO')};
+  try { await offerSnap(await frameSnap(canvas, meta, 'Pocket Garden', true)); }
+  catch (error) { document.querySelector('[role=status]').textContent = error.message; }
+};
+</script>
+</html>

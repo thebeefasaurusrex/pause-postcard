@@ -1,0 +1,17 @@
+config_version=5
+
+[application]
+config/name="PausePostcard Demo"
+run/main_scene="res://demo/demo.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+
+[autoload]
+PausePostcard="*res://addons/pause_postcard/postcard.gd"
+
+[display]
+window/size/viewport_width=960
+window/size/viewport_height=540
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
